@@ -1,3 +1,8 @@
+interface Comment {
+  user: any;
+  comment: string;
+}
+
 export interface Article {
   id?: number;
   isBookmark?: boolean;
