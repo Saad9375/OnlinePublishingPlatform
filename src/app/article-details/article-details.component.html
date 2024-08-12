@@ -1,4 +1,11 @@
 <app-header [title]="'Article Details'"></app-header>
+@if(userExtraInfo.role === 'writer'){
+<div class="article-details-button">
+  <button style="width: 185px" class="btn btn-primary" (click)="edit()">
+    Edit Details
+  </button>
+</div>
+}
 <div class="article-details">
   <div class="article-details-heading-div">
     <h1>{{ article.title }}</h1>
@@ -16,6 +23,7 @@
       />
       4K
     </div>
+    @if(userExtraInfo.role==='reader'){
     <img
       class="article-details-caption-bookmark"
       role="button"
@@ -26,6 +34,7 @@
           : '../../assets/bookmarks.svg'
       "
     />
+    }
   </div>
   <hr class="hr-2" />
   <div class="image-section">

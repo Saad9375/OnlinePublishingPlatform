@@ -3,6 +3,12 @@
   margin: auto;
   padding: 15px;
 
+  &-button {
+    position: fixed;
+    top: 52px;
+    left: 15px;
+  }
+
   &-image {
     margin: 15px auto;
     &-img {

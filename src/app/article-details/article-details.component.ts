@@ -4,11 +4,12 @@ import { Article } from '../shared/models/article.model';
 import { StateManagementService } from '../shared/services/state-management/state-management.service';
 import _ from 'lodash';
 import { AuthService } from '../shared/services/auth/auth.service';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-article-details',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, RouterLink],
   templateUrl: './article-details.component.html',
   styleUrl: './article-details.component.scss',
 })
@@ -18,7 +19,8 @@ export class ArticleDetailsComponent implements OnInit {
 
   constructor(
     private stateManagementService: StateManagementService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -68,5 +70,10 @@ export class ArticleDetailsComponent implements OnInit {
           alert('Something went wrong!!');
         },
       });
+  }
+
+  edit() {
+    this.stateManagementService.selectedArticle.set(this.article);
+    this.router.navigate(['/edit-article'], { queryParams: { isEdit: true } });
   }
 }

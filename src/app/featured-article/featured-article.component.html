@@ -6,7 +6,9 @@
     <img class="article-image" src="../../assets/No_Image_Available.jpg" />
     }
   </div>
-  <p class="article-title">{{ article.title }}</p>
+  <p role="button" (click)="articleSelected()" class="article-title">
+    {{ article.title }}
+  </p>
   @if(article.content.length <=100){
   <p class="article-content">{{ article.content }}</p>
   }@else {

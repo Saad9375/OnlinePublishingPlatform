@@ -63,7 +63,7 @@ export class SignUpComponent implements OnInit {
             let userExtraInfo = {
               role: this.signupForm.value.role,
               email: this.signupForm.value.email,
-              bookMarks: [],
+              bookmarks: [],
             };
             this.authService
               .insertUserData(

@@ -45,4 +45,12 @@ export const routes: Routes = [
       ),
     canActivate: [authGuard],
   },
+  {
+    path: 'edit-article',
+    loadComponent: () =>
+      import('./new-article/new-article.component').then(
+        (m) => m.NewArticleComponent
+      ),
+    canActivate: [authGuard],
+  },
 ];

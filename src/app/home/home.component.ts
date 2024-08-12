@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.stateManagementService.selectedArticle.set(null);
     this.activatedRoute.queryParams.subscribe((params) => {
       this.showBookmarks = params['showBookmarks'];
     });

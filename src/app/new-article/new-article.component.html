@@ -1,6 +1,6 @@
 <div>
-  <app-header [title]="'New Article'"></app-header>
-  <form [formGroup]="newArticleForm" (ngSubmit)="createPost()">
+  <app-header [title]="isEdit ? 'Edit Article' : 'New Article'"></app-header>
+  <form [formGroup]="newArticleForm" (ngSubmit)="submit()">
     <div class="row">
       <div class="form-group col-12">
         <h6>Title</h6>

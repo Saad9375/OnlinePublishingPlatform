@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location, NgStyle } from '@angular/common';
 import { Article } from '../shared/models/article.model';
 import { ArticlesService } from '../shared/services/articles/articles.service';
@@ -32,7 +32,7 @@ export class NewArticleComponent {
   isEdit = false;
   id?: number;
   downloadURL!: Observable<string>;
-  fb: any;
+  article!: Article;
 
   /**
    * Creates an instance of NewArticleComponent.
@@ -49,7 +49,8 @@ export class NewArticleComponent {
     private location: Location,
     private stateManagementService: StateManagementService,
     private router: Router,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   /**
@@ -57,26 +58,12 @@ export class NewArticleComponent {
    * @memberOf NewArticleComponent
    */
   ngOnInit() {
-    this.images = [];
+    this.initializeData();
     this.createNewForm();
+    if (this.isEdit) {
+      this.populateData();
+    }
   }
-
-  /**
-   * @description triggers when user uploads image
-   * @param {*} event
-   *
-   * @memberOf NewArticleComponent
-   */
-  // onSelectFile(event: any) {
-  //   if (event.target.files) {
-  //     let reader = new FileReader();
-  //     reader.readAsDataURL(event.target.files[0]);
-  //     this.imageFiles.push(event.target.files[0]);
-  //     reader.onload = (event: any) => {
-  //       this.urls.push(event.target.result);
-  //     };
-  //   }
-  // }
 
   onSelectFile(event: any) {
     const name = Date.now();
@@ -114,7 +101,7 @@ export class NewArticleComponent {
    * @description this function is triggered to submit the form
    * @memberOf NewArticleComponent
    */
-  createPost() {
+  submit() {
     this.isSubmit = true;
     if (this.newArticleForm.valid) {
       let articlesCount = this.stateManagementService.articlesCount();
@@ -125,18 +112,18 @@ export class NewArticleComponent {
       );
       let newArticle: Article = {
         title: this.newArticleForm.value.title,
-        comments: [],
-        date: new Date(),
+        comments: this.isEdit ? this.article.comments : [],
+        date: this.isEdit ? this.article.date : new Date(),
         author: signedInUser.displayName,
         authorEmail: signedInUser.email,
         content: this.newArticleForm.value.content,
         minutes: this.newArticleForm.value.readingTime,
-        id: articlesCount,
+        id: this.isEdit ? this.article.id : articlesCount,
         isFeatured: this.newArticleForm.value.isFeatured,
         images: this.images.map((image) => image.url),
       };
 
-      this.articlesService.addNewArticle(articlesCount, newArticle).subscribe({
+      this.articlesService.addNewArticle(newArticle).subscribe({
         next: () => {
           this.router.navigateByUrl('/home');
         },
@@ -166,11 +153,27 @@ export class NewArticleComponent {
     this.location.back();
   }
 
-  // private filterFavourites() {
-  //   if (this.showBookmarkedArticles) {
-  //     this.propertyList = this.propertyList.filter((property: Property) =>
-  //       this.signedInUser.favourites.includes(property.id)
-  //     );
-  //   }
-  // }
+  private initializeData() {
+    this.isEdit = false;
+    this.images = [];
+    this.activatedRoute.queryParams.subscribe((params) => {
+      if (params['isEdit']) {
+        this.isEdit = true;
+      }
+    });
+  }
+
+  private populateData() {
+    this.article = this.stateManagementService.selectedArticle();
+    if (this.article) {
+      this.newArticleForm.patchValue({
+        title: this.article.title,
+        readingTime: this.article.minutes,
+        content: this.article.content,
+        isFeatured: this.article.isFeatured,
+      });
+      this.images =
+        this.article.images?.map((url) => ({ fileName: '', url })) ?? [];
+    }
+  }
 }
