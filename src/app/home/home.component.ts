@@ -55,6 +55,12 @@ export class HomeComponent implements OnInit {
             this.userExtraInfo.bookmarks?.includes(article.id)
           );
         }
+        if (this.userExtraInfo.role === 'writer') {
+          this.articles = this.articles.filter(
+            (article: Article) =>
+              article.authorEmail === this.userExtraInfo.email
+          );
+        }
       },
       error: () => {
         alert('Something went wrong !!');
