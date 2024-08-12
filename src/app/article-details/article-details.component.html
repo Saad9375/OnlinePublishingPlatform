@@ -1,0 +1,48 @@
+<app-header [title]="'Article Details'"></app-header>
+<div class="article-details">
+  <div class="article-details-heading-div">
+    <h1>{{ article.title }}</h1>
+    <div class="article-details-heading-div-author">
+      <img src="../../assets/user.png" /><span>By {{ article.author }} </span
+      ><br /><span class="read-msg">{{ article.minutes }} min read</span>
+    </div>
+  </div>
+  <hr class="hr-1" />
+  <div class="article-details-caption">
+    <div class="article-details-caption-comments-div">
+      <img
+        class="article-details-caption-comment"
+        src="../../assets/comment.png"
+      />
+      4K
+    </div>
+    <img
+      class="article-details-caption-bookmark"
+      role="button"
+      (click)="toggleBookmark()"
+      [src]="
+        isBookmark
+          ? '../../assets/bookmarks-fill.svg'
+          : '../../assets/bookmarks.svg'
+      "
+    />
+  </div>
+  <hr class="hr-2" />
+  <div class="image-section">
+    @if(article.images?.length){ @for(image of article.images; track $index){
+    <div class="article-details-image">
+      <img class="article-details-image-img" [src]="image" />
+    </div>
+    } }@else {
+    <div class="article-details-image">
+      <img
+        class="article-details-image-img"
+        src="../../assets/No_Image_Available.jpg"
+      />
+    </div>
+    }
+  </div>
+  <div>
+    {{ article.content }}
+  </div>
+</div>

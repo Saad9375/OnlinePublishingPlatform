@@ -1,0 +1,24 @@
+<div class="header">
+  @if(title !== 'Online Publishing Platform'){
+  <div class="header-right-side-div">
+    <button (click)="goBack()" type="button" class="btn btn-link">Back</button>
+  </div>
+  }
+  <div class="header-title">{{ title }}</div>
+  <div class="header-right-side-div">
+    @if(title === 'Online Publishing Platform' && userExtraInfo.role
+    ==='reader'){
+    <button
+      type="button"
+      [routerLink]="['/bookmark-articles']"
+      [queryParams]="{ showBookmarks: true }"
+      class="btn btn-link"
+    >
+      Bookmarked Articles
+    </button>
+    }
+    <button type="button" class="btn btn-link" (click)="logout()">
+      Logout
+    </button>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.form-group {
+  @extend .form-group;
+  padding-bottom: 10px;
+}
+
+.negotiable-checkbox {
+  height: max-content;
+  margin: auto;
+}
+
+form {
+  padding: 15px;
+  width: 75%;
+  margin: auto;
+  margin-top: 20px;
+  border: 2px solid black;
+  background: lightblue;
+}
+
+.image-section {
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.image-inner-div {
+  position: relative;
+}
+
+.close-image-div {
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  padding: 0px;
+  background: red;
+  border-radius: 50%;
+}
+
+.close-image {
+  width: 27px;
+}
+
+@media screen and (max-width: 900px) {
+  form {
+    width: 90%;
+  }
+}
+
+.toggle-switch {
+  width: 70px;
+  height: 32px;
+}

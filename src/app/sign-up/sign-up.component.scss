@@ -1,0 +1,40 @@
+.card {
+  border: none;
+  width: 500px;
+  padding: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 5%);
+  background: hsla(205, 46%, 30%, 1);
+  background: linear-gradient(
+    90deg,
+    hsla(205, 46%, 30%, 1),
+    hsla(260, 29%, 36%, 1) 100%
+  );
+}
+
+.card h1,
+h6 {
+  color: #fff;
+}
+
+label {
+  color: #fff;
+}
+
+input,
+select {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.name-input {
+  margin-bottom: 10px;
+}
+
+a {
+  color: #fff;
+  margin-top: 10px;
+  width: max-content;
+  margin: 0 auto;
+}

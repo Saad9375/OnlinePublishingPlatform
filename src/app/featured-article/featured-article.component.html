@@ -1,0 +1,15 @@
+<div class="article">
+  <div class="article-image-div">
+    @if(article.images?.length){
+    <img class="article-image" [src]="article.images?.at(0)" />
+    }@else {
+    <img class="article-image" src="../../assets/No_Image_Available.jpg" />
+    }
+  </div>
+  <p class="article-title">{{ article.title }}</p>
+  @if(article.content.length <=100){
+  <p class="article-content">{{ article.content }}</p>
+  }@else {
+  <p class="article-content">{{ article.content.slice(0, 96) }} ...</p>
+  }
+</div>

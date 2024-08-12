@@ -1,0 +1,23 @@
+.header {
+  position: relative;
+  background: lightgrey;
+  display: flex;
+  font-size: 20px;
+  &-title {
+    width: max-content;
+    margin: auto;
+  }
+  &-right-side-div {
+    display: flex;
+    top: 0;
+    right: 2%;
+    text-decoration: underline;
+  }
+  &-right-most-btn {
+    padding-left: 5%;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}

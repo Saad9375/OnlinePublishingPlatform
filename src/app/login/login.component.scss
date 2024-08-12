@@ -1,0 +1,81 @@
+.card {
+  border: none;
+  width: 500px;
+  padding: 40px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 15%);
+  background: hsla(205, 46%, 30%, 1);
+  background: linear-gradient(
+    90deg,
+    hsla(205, 46%, 30%, 1),
+    hsla(260, 29%, 36%, 1) 100%
+  );
+}
+
+.card h1,
+h6 {
+  color: #fff;
+}
+
+label {
+  color: #fff;
+}
+
+input {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+a {
+  margin-top: 10px;
+  width: max-content;
+}
+
+.caption {
+  margin: 10px auto 0 auto;
+}
+
+.google-seperation {
+  margin-top: 15px;
+  overflow: hidden;
+  text-align: center;
+
+  &::before,
+  &::after {
+    background-color: #fff;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+  }
+
+  &::before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+
+  &::after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
+}
+
+.google {
+  &-div {
+    display: flex;
+    margin-top: 10px;
+  }
+  &-button {
+    margin: auto;
+  }
+  &-image {
+    width: 60px;
+  }
+  &-label {
+    display: inline-block;
+    margin: auto 10px auto 0;
+  }
+}

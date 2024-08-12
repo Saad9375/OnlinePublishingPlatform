@@ -1,0 +1,65 @@
+<div class="login">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <h1>Login</h1>
+          <h6>Please enter email & password !!</h6>
+        </div>
+
+        <form (ngSubmit)="login()" [formGroup]="loginForm">
+          <div class="form-group">
+            <label for="loginEmail">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="loginEmail"
+              formControlName="email"
+              placeholder="Enter email"
+            />
+          </div>
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="loginPassword"
+              formControlName="password"
+              placeholder="Password"
+            />
+          </div>
+          <div
+            [ngStyle]="{
+              display: isSubmit && loginForm.invalid ? 'block' : 'none'
+            }"
+            class="invalid-feedback"
+          >
+            {{
+              loginForm.controls["email"].invalid &&
+              loginForm.controls["password"].invalid
+                ? "Please provide proper details"
+                : loginForm.controls["email"].invalid
+                ? "Please provide a valid email."
+                : "Please provide password."
+            }}
+          </div>
+          <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+        <div class="caption" style="color: #fff">
+          New User & Want to Signup manually?
+          <a [routerLink]="['/sign-up']">Click Here !!</a>
+        </div>
+        <h6 class="google-seperation">or</h6>
+        <div class="google-div">
+          <button (click)="signInWithGoogle()" class="google-button">
+            <img
+              class="google-image"
+              src="../../assets/Secure-Google-account.png"
+            />
+            <div class="google-label" google-label>Signin With Google</div>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

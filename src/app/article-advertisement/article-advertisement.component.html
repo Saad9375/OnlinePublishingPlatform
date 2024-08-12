@@ -1,0 +1,46 @@
+<div class="article-add">
+  <div class="article-add-text">
+    <div role="button" (click)="articleSelected()" class="article-add-title">
+      {{ article.title }}
+    </div>
+    @if(article.content.length>200){
+    <div class="article-add-content">
+      {{ article.content.slice(0, 200) }} ...
+    </div>
+    }@else {
+    <div class="article-add-content">
+      {{ article.content }}
+    </div>
+    }
+    <div class="article-add-inner-items">
+      <div class="article-add-inner-items-date">
+        {{ article.date | date : "short" }}
+      </div>
+      <div class="article-add-inner-items-minutes">
+        {{ article.minutes }} min read
+      </div>
+      <div class="article-add-inner-items-div">
+        @if(signedInUser.role ==='reader'){
+        <button
+          (click)="toggleBookmark()"
+          class="article-add-inner-items-image"
+        >
+          @if(isBookmark){
+          <img src="../../assets/bookmarks-fill.svg" />
+          }@else {
+          <img src="../../assets/bookmarks.svg" />
+          }
+        </button>
+        }
+        <div class="article-add-inner-items-minutes">
+          {{ article.author }}
+        </div>
+      </div>
+    </div>
+  </div>
+  @if(article.images?.length){
+  <img class="article-add-image" [src]="article.images?.at(0)" />
+  }@else {
+  <img class="article-add-image" src="../../assets/No_Image_Available.jpg" />
+  }
+</div>

@@ -1,0 +1,41 @@
+<div class="home">
+  <app-header
+    [title]="
+      showBookmarks ? 'Bookmarked Articles' : 'Online Publishing Platform'
+    "
+  ></app-header>
+  @if(featuredArticles.length && !showBookmarks &&
+  userExtraInfo.role==='reader'){
+  <h4 class="featured-articles-heading">Featured Articles</h4>
+  <div style="display: flex">
+    <div class="featured-articles-outer-div">
+      <div class="featured-articles-div">
+        @for(featuredArticle of featuredArticles;track $index){
+        <app-featured-article
+          [article]="featuredArticle"
+        ></app-featured-article>
+        }
+      </div>
+    </div>
+  </div>
+  }
+  <div class="articles-list">
+    @if(userExtraInfo.role==='writer'){
+    <div class="new-article-button">
+      <button
+        [routerLink]="['/new-article']"
+        style="width: 185px"
+        class="btn btn-primary"
+      >
+        Draft an Article
+      </button>
+    </div>
+    } @for(article of articles;track $index){
+    <app-article-advertisement
+      (toggleEvent)="toggleBookmark($event)"
+      [signedInUser]="userExtraInfo"
+      [article]="article"
+    ></app-article-advertisement>
+    }
+  </div>
+</div>

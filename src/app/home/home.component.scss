@@ -1,0 +1,45 @@
+.articles-list {
+  margin: auto;
+}
+
+.new-article-button {
+  position: fixed;
+  top: 52px;
+  left: 15px;
+}
+
+@media screen and (max-width: 1000px) {
+  .articles-list {
+    width: 75%;
+  }
+
+  .featured-articles-outer-div {
+    width: 85%;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .articles-list {
+    width: 50%;
+  }
+
+  .featured-articles-outer-div {
+    width: 65%;
+  }
+}
+
+.featured-articles-outer-div {
+  overflow-x: auto;
+  margin: auto;
+}
+
+.featured-articles-div {
+  display: flex;
+  margin: auto;
+  width: max-content;
+}
+
+.featured-articles-heading {
+  width: max-content;
+  margin: 20px auto 0px;
+}

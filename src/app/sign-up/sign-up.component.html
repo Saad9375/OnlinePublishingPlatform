@@ -1,0 +1,91 @@
+<div class="login">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="text-center">
+          <h1>Sign Up</h1>
+          <h6>Please enter the details !!</h6>
+        </div>
+
+        <form (ngSubmit)="signup()" [formGroup]="signupForm">
+          <div class="form-group">
+            <label for="signupName">Full Name</label>
+            <input
+              type="text"
+              class="form-control name-input"
+              id="signupName"
+              formControlName="name"
+              placeholder="Enter full name"
+            />
+            <div
+              [ngStyle]="{
+                display:
+                  isSubmit && signupForm.controls['name'].invalid
+                    ? 'block'
+                    : 'none'
+              }"
+              class="invalid-feedback"
+            >
+              Please provide your Fullname
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Role</label>
+            <select
+              placeholder="Select Role"
+              formControlName="role"
+              class="form-select"
+            >
+              <option [value]="'reader'">Reader</option>
+              <option [value]="'writer'">Writer</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="signupEmail">Email address</label>
+            <input
+              type="email"
+              class="form-control"
+              id="signupEmail"
+              formControlName="email"
+              placeholder="Enter email"
+            />
+            <div
+              [ngStyle]="{
+                display:
+                  isSubmit && signupForm.controls['email'].invalid
+                    ? 'block'
+                    : 'none'
+              }"
+              class="invalid-feedback"
+            >
+              Please provide a valid email
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input
+              type="password"
+              class="form-control"
+              id="signupPassword"
+              formControlName="password"
+              placeholder="Password"
+            />
+            <div
+              [ngStyle]="{
+                display:
+                  isSubmit && signupForm.controls['password'].invalid
+                    ? 'block'
+                    : 'none'
+              }"
+              class="invalid-feedback"
+            >
+              Please provide a password
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </form>
+        <a [routerLink]="['/login']"> Already Registered? Click to Login !!</a>
+      </div>
+    </div>
+  </div>
+</div>

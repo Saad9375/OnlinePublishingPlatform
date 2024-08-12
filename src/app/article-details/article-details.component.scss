@@ -1,0 +1,63 @@
+.article-details {
+  width: 60%;
+  margin: auto;
+  padding: 15px;
+
+  &-image {
+    margin: 15px auto;
+    &-img {
+      width: 400px;
+      height: 300px;
+    }
+  }
+
+  &-heading-div {
+    &-author {
+      img {
+        width: 50px;
+        margin-right: 10px;
+        float: left;
+      }
+    }
+  }
+
+  &-caption {
+    &-comments-div {
+      float: left;
+      margin-left: 5px;
+    }
+    &-comment {
+      width: 19px;
+    }
+
+    &-bookmark {
+      float: right;
+      width: 18px;
+      margin-top: 5px;
+      margin-right: 5px;
+    }
+  }
+}
+
+.hr-1 {
+  margin: 15px 0 0;
+}
+
+.hr-2 {
+  margin: 28px 0 0;
+}
+
+.read-msg {
+  font-size: 14px;
+}
+
+.image-section {
+  margin: 15px auto;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.image-inner-div {
+  position: relative;
+}

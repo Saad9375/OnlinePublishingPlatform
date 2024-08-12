@@ -1,0 +1,107 @@
+<div>
+  <app-header [title]="'New Article'"></app-header>
+  <form [formGroup]="newArticleForm" (ngSubmit)="createPost()">
+    <div class="row">
+      <div class="form-group col-12">
+        <h6>Title</h6>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="title"
+          id="title"
+        />
+        <div
+          [ngStyle]="{
+            display:
+              (newArticleForm.controls['title'].dirty || isSubmit) &&
+              newArticleForm.controls['title'].invalid
+                ? 'block'
+                : 'none'
+          }"
+          class="invalid-feedback"
+        >
+          Please provide Title.
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-2"></div>
+      <div class="form-group col-4">
+        <h6>Featured Article?</h6>
+        <div class="form-check form-switch">
+          <input
+            class="toggle-switch form-check-input"
+            type="checkbox"
+            id="isFeatured"
+            formControlName="isFeatured"
+          />
+        </div>
+      </div>
+      <div class="form-group col-4">
+        <h6>Reading Time</h6>
+        <input
+          type="number"
+          class="form-control"
+          formControlName="readingTime"
+          id="readingTime"
+        />
+        <div
+          [ngStyle]="{
+            display:
+              (newArticleForm.controls['readingTime'].dirty || isSubmit) &&
+              newArticleForm.controls['readingTime'].invalid
+                ? 'block'
+                : 'none'
+          }"
+          class="invalid-feedback"
+        >
+          Please provide Reading Time.
+        </div>
+      </div>
+      <div class="form-group col-2"></div>
+    </div>
+    <h6>Images</h6>
+    @if(images.length){
+    <div class="image-section">
+      @for(image of images; track $index){
+      <div class="image-inner-div">
+        <img [src]="image.url" height="200" />
+        <div (click)="deleteImage($index)" class="close-image-div">
+          <img class="close-image" src="../../assets/cross.svg" />
+        </div>
+      </div>
+      }
+    </div>
+    }
+    <div class="form-group">
+      <input type="file" (change)="onSelectFile($event)" />
+    </div>
+    <div class="form-group">
+      <h6>Content</h6>
+      <textarea
+        class="form-control"
+        id="content"
+        formControlName="content"
+        rows="6"
+      ></textarea>
+      <div
+        [ngStyle]="{
+          display:
+            (newArticleForm.controls['content'].dirty || isSubmit) &&
+            newArticleForm.controls['content'].invalid
+              ? 'block'
+              : 'none'
+        }"
+        class="invalid-feedback"
+      >
+        Please provide some content.
+      </div>
+    </div>
+    <div class="form-group">
+      <button (click)="cancel()" type="button" class="btn btn-link">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>
+</div>
