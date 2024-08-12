@@ -1,27 +1,22 @@
-# OnlinePublishingPlatformNew
+- This is a online publishing platform which has been developed as part of the Angular advance assignment.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.8.
+- This is a role based application with the following 2 roles-
 
-## Development server
+Reader- Reader can read all the published articles and can bookmark them if they want to read it later and can even comment on the articles if they want to enquire anything
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Landlord- Landlord can view/edit their own articles and can publish new articles. They can even comment on their own articles.
 
-## Code scaffolding
+- All the data and authentication is being managed by firebase.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- User can even signup with new email and can even login with their google account
 
-## Build
+- Users
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+  Reader-> email- user@gmail.com
+  password- test1234
 
-## Running unit tests
+  Writer-> email- admin@gmail.com
+  password- admin1234
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- GitHub Link where code is kept-
+  https://github.com/Saad9375/OnlinePublishingPlatform
