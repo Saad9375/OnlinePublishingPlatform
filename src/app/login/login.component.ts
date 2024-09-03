@@ -41,28 +41,31 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.authService
-      .login(this.loginForm.value.email, this.loginForm.value.password)
-      .pipe(
-        switchMap((userData: any) =>
-          this.authService.getUserData(userData.user.uid)
+    this.isSubmit = true;
+    if (this.loginForm.valid) {
+      this.authService
+        .login(this.loginForm.value.email, this.loginForm.value.password)
+        .pipe(
+          switchMap((userData: any) =>
+            this.authService.getUserData(userData.user.uid)
+          )
         )
-      )
-      .subscribe({
-        next: (userExtraInfo: any) => {
-          let userInfo = userExtraInfo;
-          if (userInfo) {
-            if (!userInfo.bookmarks) {
-              userInfo.bookmarks = [];
+        .subscribe({
+          next: (userExtraInfo: any) => {
+            let userInfo = userExtraInfo;
+            if (userInfo) {
+              if (!userInfo.bookmarks) {
+                userInfo.bookmarks = [];
+              }
+              sessionStorage.setItem('userExtraInfo', JSON.stringify(userInfo));
             }
-            sessionStorage.setItem('userExtraInfo', JSON.stringify(userInfo));
-          }
-          this.router.navigate(['/home']);
-        },
-        error: () => {
-          alert('Something went Wrong in getting User Data !!');
-        },
-      });
+            this.router.navigate(['/home']);
+          },
+          error: () => {
+            alert('Something went Wrong in getting User Data !!');
+          },
+        });
+    }
   }
 
   signInWithGoogle() {
