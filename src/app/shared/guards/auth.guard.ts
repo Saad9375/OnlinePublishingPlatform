@@ -2,6 +2,7 @@ import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { UserInfo } from '../models/user-info.model';
+import { firebaseConfig } from '../../app.config';
 
 export const authGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
@@ -10,7 +11,7 @@ export const authGuard: CanActivateFn = () => {
   if (isPlatformBrowser(platformId)) {
     signedInUser = JSON.parse(
       sessionStorage.getItem(
-        'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+        `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
       ) as string
     );
     if (sessionStorage && !signedInUser) {

@@ -9,6 +9,7 @@ import {
 import { NgStyle } from '@angular/common';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { switchMap } from 'rxjs';
+import { firebaseConfig } from '../app.config';
 
 @Component({
   selector: 'app-login',
@@ -44,10 +45,7 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.value.email, this.loginForm.value.password)
       .pipe(
         switchMap((userData: any) =>
-          this.authService.getUserData(
-            userData.user.uid,
-            userData.user.accessToken
-          )
+          this.authService.getUserData(userData.user.uid)
         )
       )
       .subscribe({
@@ -72,10 +70,7 @@ export class LoginComponent implements OnInit {
       .signinWithGoogle()
       .pipe(
         switchMap((userData: any) =>
-          this.authService.getUserData(
-            userData.user.uid,
-            userData.user.accessToken
-          )
+          this.authService.getUserData(userData.user.uid)
         )
       )
       .subscribe({
@@ -89,7 +84,7 @@ export class LoginComponent implements OnInit {
           } else {
             let user = JSON.parse(
               sessionStorage.getItem(
-                'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+                `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
               ) as string
             );
             let userExtraInfo = {
@@ -97,25 +92,19 @@ export class LoginComponent implements OnInit {
               role: 'reader',
               bookmarks: [],
             };
-            this.authService
-              .insertUserData(
-                userExtraInfo,
-                user.uid,
-                user.stsTokenManager.accessToken
-              )
-              .subscribe({
-                next: () => {
-                  sessionStorage.setItem(
-                    'userExtraInfo',
-                    JSON.stringify(userExtraInfo)
-                  );
-                  console.log('Signed In User-', user);
-                  this.router.navigate(['/home']);
-                },
-                error: () => {
-                  alert('Something went wrong in storing user data !!');
-                },
-              });
+            this.authService.insertUserData(userExtraInfo, user.uid).subscribe({
+              next: () => {
+                sessionStorage.setItem(
+                  'userExtraInfo',
+                  JSON.stringify(userExtraInfo)
+                );
+                console.log('Signed In User-', user);
+                this.router.navigate(['/home']);
+              },
+              error: () => {
+                alert('Something went wrong in storing user data !!');
+              },
+            });
           }
         },
         error: () => {

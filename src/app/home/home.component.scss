@@ -43,3 +43,14 @@
   width: max-content;
   margin: 20px auto 0px;
 }
+
+.search-input {
+  position: relative;
+  margin-top: 20px;
+
+  &-icon {
+    position: absolute;
+    top: 11px;
+    right: 25px;
+  }
+}

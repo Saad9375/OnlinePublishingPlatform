@@ -12,9 +12,9 @@ import {
   user,
   UserCredential,
 } from '@angular/fire/auth';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
-import { UserInfo } from '../../models/user-info.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { from, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { firebaseConfig } from '../../../app.config';
 
 @Injectable({
   providedIn: 'root',
@@ -58,15 +58,13 @@ export class AuthService {
     return from(promise);
   }
 
-  getUserData(uId: string, accessToken: string) {
-    return this.http.get(
-      `https://online-publishing-platfo-417f1-default-rtdb.firebaseio.com/users/${uId}.json?auth=${accessToken}`
-    );
+  getUserData(uId: string) {
+    return this.http.get(`${firebaseConfig.databaseURL}/users/${uId}.json`);
   }
 
-  insertUserData(newUserExtraInfo: any, uid: string, accessToken: string) {
+  insertUserData(newUserExtraInfo: any, uid: string) {
     return this.http.put(
-      `https://online-publishing-platfo-417f1-default-rtdb.firebaseio.com/users/${uid}.json?auth=${accessToken}`,
+      `${firebaseConfig.databaseURL}/users/${uid}.json`,
       newUserExtraInfo
     );
   }

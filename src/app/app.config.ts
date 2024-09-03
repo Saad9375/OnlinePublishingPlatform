@@ -7,10 +7,11 @@ import { provideClientHydration } from '@angular/platform-browser';
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { FIREBASE_OPTIONS } from '@angular/fire/compat';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
+import { appInterceptor } from './shared/interceptor/app.interceptor';
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: 'AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48',
   authDomain: 'online-publishing-platfo-417f1.firebaseapp.com',
   databaseURL:
@@ -28,7 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(),
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideAuth(() => getAuth()),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([appInterceptor])),
     provideFirestore(() => getFirestore()),
 
     { provide: FIREBASE_OPTIONS, useValue: firebaseConfig },

@@ -7,6 +7,7 @@ import { AuthService } from '../shared/services/auth/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { ArticlesService } from '../shared/services/articles/articles.service';
+import { firebaseConfig } from '../app.config';
 
 @Component({
   selector: 'app-article-details',
@@ -39,7 +40,7 @@ export class ArticleDetailsComponent implements OnInit {
     );
     this.user = JSON.parse(
       sessionStorage.getItem(
-        'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+        `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
       ) as string
     );
   }
@@ -78,27 +79,21 @@ export class ArticleDetailsComponent implements OnInit {
     }
     let user = JSON.parse(
       sessionStorage.getItem(
-        'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+        `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
       ) as string
     );
-    this.authService
-      .insertUserData(
-        this.userExtraInfo,
-        user.uid,
-        user.stsTokenManager.accessToken
-      )
-      .subscribe({
-        next: () => {
-          sessionStorage.setItem(
-            'userExtraInfo',
-            JSON.stringify(this.userExtraInfo)
-          );
-        },
-        error: () => {
-          this.userExtraInfo = userBookmarkInfo;
-          alert('Something went wrong!!');
-        },
-      });
+    this.authService.insertUserData(this.userExtraInfo, user.uid).subscribe({
+      next: () => {
+        sessionStorage.setItem(
+          'userExtraInfo',
+          JSON.stringify(this.userExtraInfo)
+        );
+      },
+      error: () => {
+        this.userExtraInfo = userBookmarkInfo;
+        alert('Something went wrong!!');
+      },
+    });
   }
 
   edit() {

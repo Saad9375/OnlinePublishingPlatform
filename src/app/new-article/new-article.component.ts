@@ -14,6 +14,7 @@ import { ArticlesService } from '../shared/services/articles/articles.service';
 import { StateManagementService } from '../shared/services/state-management/state-management.service';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { firebaseConfig } from '../app.config';
 
 @Component({
   selector: 'app-new-article',
@@ -92,6 +93,13 @@ export class NewArticleComponent {
    * @memberOf NewArticleComponent
    */
   deleteImage(index: number) {
+    if (!this.images[index].fileName) {
+      const url = this.images[index].url;
+      this.images[index].fileName = url.slice(
+        url.indexOf('images%2F') + 9,
+        url.indexOf('?')
+      );
+    }
     const storageRef = this.storage.ref(this.basePath);
     storageRef.child(this.images[index].fileName).delete();
     this.images.splice(index, 1);
@@ -107,7 +115,7 @@ export class NewArticleComponent {
       let articlesCount = this.stateManagementService.articlesCount();
       let signedInUser = JSON.parse(
         sessionStorage.getItem(
-          'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+          `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
         ) as string
       );
       let newArticle: Article = {

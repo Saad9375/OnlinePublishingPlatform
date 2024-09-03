@@ -9,6 +9,7 @@ import {
 import { NgStyle } from '@angular/common';
 import { AuthService } from '../shared/services/auth/auth.service';
 import { StateManagementService } from '../shared/services/state-management/state-management.service';
+import { firebaseConfig } from '../app.config';
 
 @Component({
   selector: 'app-sign-up',
@@ -56,7 +57,7 @@ export class SignUpComponent implements OnInit {
         next: () => {
           let user = JSON.parse(
             sessionStorage.getItem(
-              'firebase:authUser:AIzaSyBuE8Z8rhoJubTRcIq_ZrJ4Qz11cbu2H48:[DEFAULT]'
+              `firebase:authUser:${firebaseConfig.apiKey}:[DEFAULT]`
             ) as string
           );
           if (user) {
@@ -65,26 +66,20 @@ export class SignUpComponent implements OnInit {
               email: this.signupForm.value.email,
               bookmarks: [],
             };
-            this.authService
-              .insertUserData(
-                userExtraInfo,
-                user.uid,
-                user.stsTokenManager.accessToken
-              )
-              .subscribe({
-                next: () => {
-                  sessionStorage.setItem(
-                    'userExtraInfo',
-                    JSON.stringify(userExtraInfo)
-                  );
-                  alert(`Signup Successful for ${user.displayName}`);
-                  console.log('Signed In User-', user);
-                  this.router.navigate(['/home']);
-                },
-                error: () => {
-                  alert('Something went wrong !!');
-                },
-              });
+            this.authService.insertUserData(userExtraInfo, user.uid).subscribe({
+              next: () => {
+                sessionStorage.setItem(
+                  'userExtraInfo',
+                  JSON.stringify(userExtraInfo)
+                );
+                alert(`Signup Successful for ${user.displayName}`);
+                console.log('Signed In User-', user);
+                this.router.navigate(['/home']);
+              },
+              error: () => {
+                alert('Something went wrong !!');
+              },
+            });
           }
         },
         error: (error) => {
